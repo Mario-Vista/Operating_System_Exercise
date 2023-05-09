@@ -1,0 +1,23 @@
+prefix=/usr/local
+bindir=${prefix}/bin
+
+all: usaPal
+
+install:
+	cp usaPal  ${bindir}
+
+clean: 
+	rm *.o usaPal
+	
+usaPal: usaPal.o palindroma.o reverse.o
+
+
+
+usaPal.o: usaPal.c palindroma.h
+
+		
+palindroma.o: palindroma.c palindroma.h reverse.h
+
+
+reverse.o: reverse.c reverse.h
+

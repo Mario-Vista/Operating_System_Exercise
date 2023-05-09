@@ -1,0 +1,1 @@
+int palindroma (char *);

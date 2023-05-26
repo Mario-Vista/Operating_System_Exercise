@@ -4,7 +4,8 @@
 #include <pthread.h>
 
 //struttura di parametri in input del thread
-typedef struct parameter{
+typedef struct parameter
+{
     int start;
     int end;
     int count;
@@ -15,13 +16,16 @@ typedef struct parameter{
 
 
 //routine che verrà svolta dal thread
-void* routine(void* params){
+void* routine(void* params)
+{
     ThreadParams *p = (ThreadParams*) params;
 
     //apertura del file in modalità lettura
     FILE *file = fopen(p->filename, "r");
 
-    if(file == NULL){
+    //restituisco errore se il file non è stato aperto correttamente
+    if(file == NULL)
+    {
         perror("File non esistente");
         pthread_exit(NULL);
     }
@@ -31,10 +35,11 @@ void* routine(void* params){
 
     //conto le occorrenze della lettera voluta
     int ch;
-    while((ch = fgetc(file))!= EOF && ftell(file) <= p->end){
-        if(ch == p->character){
+    while((ch = fgetc(file))!= EOF && ftell(file) <= p->end)
+    {
+        if(ch == p->character)
             p->count++;
-        }
+        
     }
 
     //chiusura del file
@@ -66,6 +71,8 @@ int main(int argc, char* argv[])
 
     //apertura del file in modalità lettura
     FILE *file = fopen(filename, "r");
+    
+    //restituisco errore se il file non è stato aperto correttamente
     if(file == NULL)
     {
         perror("File non esistente");
@@ -92,20 +99,23 @@ int main(int argc, char* argv[])
         params[i].character = lettera;
         params[i].filename = filename;
         params[i].start = i*portion;
+
+        //controllo se il thread sia l'ultimo per l'assegnazione della fine della porzione
         params[i].end = (i == num-1) ? file_dim-1 : (i+1) * portion-1;
         params[i].count = 0;
 
         pthread_create(&threads[i], NULL, routine, (void *) &params[i]);
-
     }
 
-    for(int i = 0; i<num; i++){
+    for(int i = 0; i<num; i++)
+    {
+        pthread_join(threads[i], NULL);
+    }
 
-        pthread_join(threads[i], NULL);}
-
-    for(int i = 0; i<num; i++){
-
-        sommaTot += params[i].count;}
+    for(int i = 0; i<num; i++)
+    {
+        sommaTot += params[i].count;
+    }
 
     printf("La lettera %c compare %d volte", lettera, sommaTot);
 
@@ -117,7 +127,3 @@ int main(int argc, char* argv[])
 
     return 0;
 }
-
-
-
-

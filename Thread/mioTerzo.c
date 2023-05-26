@@ -31,7 +31,7 @@ void* routine(void* params){
 
     //conto le occorrenze della lettera voluta
     int ch;
-    while((ch == fgetc(file))!= EOF && ftell(file) <= p->end){
+    while((ch = fgetc(file))!= EOF && ftell(file) <= p->end){
         if(ch == p->character){
             p->count++;
         }
@@ -113,6 +113,7 @@ int main(int argc, char* argv[])
     // Liberazione della memoria
     free(threads);
     free(params);
+
 
     return 0;
 }

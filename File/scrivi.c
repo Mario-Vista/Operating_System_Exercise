@@ -1,6 +1,3 @@
-//scrivi.c
-
-//include of my personal path where apue.h library is located
 #include "../../../src.3e/apue.3e/include/apue.h"
 #include <stdlib.h>
 #include <errno.h>
@@ -11,24 +8,25 @@
 #include <fcntl.h>
 #include <string.h>
 
-int main(void){
-	int fd,nwrite;
-	char *data = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-	fd = open("alfabeto.txt", O_WRONLY | O_CREAT, S_IRUSR| S_IWUSR);
+int main(int argc, char* argv[]){
+    int fd, nwrite;
+    
+    //il file apre il file in modalità scrittura, se non esiste lo crea e assegna i permessi in lettura e scrittura all'utente
+    fd = open("alfabeto.txt", O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 
-	if(fd == -1){
-		perror("errore apertura");
-		exit(-1);
-	}
+    if(fd == -1){
+        perror("Error during file opening\n");
+        exit(1);
+    }
 
-	nwrite = write(fd,data,strlen(data));
+    nwrite = write(fd, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", strlen("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
 
-	if(nwrite == -1){
-		perror("errore scrittura");
-		exit(-1);
-	}
+    if(nwrite == -1){
+        perror("Error during writing file\n");
+        exit(-1);
+    }
 
-	close(fd);
-	exit(0);
+    close(fd);
+    exit(0);
 }

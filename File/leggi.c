@@ -1,6 +1,8 @@
-//leggi.c
+// Scrivere un programma C “leggi.c” che
+// utilizzando la funzione primitiva “read”,
+// legga il contenuto del file “alfabeto.txt” e
+// lo stampi sullo standard output.
 
-//include of my personal path where apue.h library is located
 #include "../../../src.3e/apue.3e/include/apue.h"
 #include <stdlib.h>
 #include <errno.h>
@@ -10,35 +12,31 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
-	
-#define BUFDIM	 1000
 
-int main(void){
+int main(){
+    int fd, nread;
+    char buff[1000];
 
-	int fd;
-	char buffer[BUFDIM];
+    //apro il file in modalità lettura
+    fd = open("alfabeto.txt", O_RDONLY);
 
-	fd = open("alfabeto.txt", O_RDONLY);
-
-
-	if (fd == -1) { 
-    printf("Errore: impossibile aprire il file out.bin\n");
-    
-    exit(1);
-  	}
-
-  	int nLett = 0;
-  while((nLett = read(fd, buffer, BUFDIM)) > 0) {
-    if(write(STDOUT_FILENO, buffer, nLett) == -1){
-    	perror("errore in scrittura");
-    	close(fd);
-    	exit(1);
+    //gestione errori
+    if(fd == -1){
+        perror("Error during file opening\n");
+        exit(1);
     }
-  }
 
-  write(STDOUT_FILENO, "\n", 1);
- 
-  close(fd);
-  exit(0);
+    //finchè la condizione è vera ci sono ancora dati da leggere all'interno del file e li memorizza in buff
+    while((nread = read(fd, buff, 1000)) > 0){
+        //scrive i dati letti in buff nel file descriptor associato allo standard di output
+        if(write(STDOUT_FILENO, buff, nread) == -1){
+            perror("Error while writing");
+            close(fd);
+            exit(1);
+        }
+    }
+    write(STDOUT_FILENO, "\n", 1);
 
+    close(fd);
+    exit(0);
 }

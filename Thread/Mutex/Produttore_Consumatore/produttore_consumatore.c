@@ -22,6 +22,9 @@ II produttore, inserisce, 20 numeri interi in maniera sequenziale. II consumator
 //definisco la dimensione del buffer
 #define BUFFERSIZE 20
 
+//carattere che indica che l'array è vuoto
+#define OVER -1
+
 //struttura per i campi usati dal produttore e dal consumatore
 typedef struct
 {
@@ -140,10 +143,12 @@ void *producer(void * args)
     printf("Sono il produttore e produco...\n");
     
     //produce 20 interi nel buffer
-    for(int i = 0; i<20; i++)
+    for(int i = 0; i<40; i++)
     {
         inserisci(i);
     }
+
+    inserisci(OVER);
     pthread_exit(NULL);
 
 }
@@ -154,9 +159,11 @@ void *consumer(void * args)
     int stamp;
     printf("sono il consumatore e consumo...\n");
 
-    for(int i = 0; i<20; i++){
+    while(1){
         //estrae e stampa a schermo gli elementi presenti nel buffer
         stamp = estrai();
+        if(stamp == OVER)
+            break;
         printf("%d\n", stamp);
     }
     pthread_exit(NULL);

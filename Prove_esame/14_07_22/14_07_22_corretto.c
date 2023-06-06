@@ -241,7 +241,8 @@ int main(int argc, char* argv[])
 		exit(1);
 	}
 	
-	
+	pthread_mutex_destroy(&shared->mutex);
+	pthread_cond_destroy(&shared->cond);
 }
 	
 	

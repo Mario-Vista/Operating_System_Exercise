@@ -52,14 +52,14 @@ data *shared;
 void init_matrix()
 {
 	//alloco le righe delle matrici
-	matrixOne = calloc(size, sizeof(int *));
+	matrixOne = ( int** ) calloc(size, sizeof(int *));
 	matrixTwo = calloc(size, sizeof(int *));
 	
 	//alloco le colonne delle matrici
 	for(int i = 0; i<size; i++)
 	{
-		matrixOne[i] = (int **) calloc(size, sizeof(int));
-		matrixTwo[i] = (int **) calloc(size, sizeof(int));
+		matrixOne[i] = (int *) calloc(size, sizeof(int));
+		matrixTwo[i] = (int *) calloc(size, sizeof(int));
 	}
 
 	
@@ -125,7 +125,7 @@ void *sum_cols(void * data)
 	for(int j = 0; j<size; j++)
 	{
 	
-		par += matrixOne[*tid][j] * matrixTwo[*tid][j];
+		par += matrixOne[j][*tids] * matrixTwo[j][*tids];
 		
 	}
 	
@@ -186,6 +186,8 @@ void *alert()
 //MAIN
 int main(int argc, char* argv[])
 {	
+	// METTICI UN CONTROLLO SUI PARAMETRI IN INPUT PER EVITARE SEGMENTATION FAULT
+
 	//assegno alla size il valore preso da riga di comando
 	size = atoi(argv[1]);
 	

@@ -1,7 +1,7 @@
 /*
 Date due matrici A e B, di dimensioni mxn e nxm di interi generati casualmente, allocate dinamicamente, con m e n
 argomenti da riga di comando, creare m thread che provvedono a calcolare il prodotto delle due matrici A e B, denotato con C,
-e dove ciascun thrvoidead calcola il prodotto relativo alla sua riga di competenza. Un thread m+1-esimo, in attesa che
+e dove ciascun thread calcola il prodotto relativo alla sua riga di competenza. Un thread m+1-esimo, in attesa che
 la matrice prodotto sia completa, viene risvegliato e stampa C.
 */
 

@@ -57,7 +57,7 @@ void *routine(void *data)
     //sem_getvalue(&aspetta, &val);
 
     printf("val %d\n", val);
-
+    
     pthread_mutex_lock(&mutex);
     if(count == SIZE)
     {
@@ -74,7 +74,7 @@ void *routine(void *data)
                 pthread_cond_wait(&cond, &mutex);
             }
 
-            printf("ole #%d terminato\n", *tid);
+            printf("Thread #%d terminato\n", *tid);
             pthread_mutex_unlock(&mutex);
 
 

@@ -23,6 +23,8 @@ int N;
 int fattoriale(int);
 int num;
 int fatt;
+
+//dichiaro il nome del semaforo
 const char* semaphore_writ = "/writ";
 const char* semaphore_prin = "/prin";
 sem_t *writ;
@@ -34,9 +36,10 @@ void *extract(void *data)
     for(int i = 0; i<N; i++)
     {
         sem_wait(writ);
-        num = rand()%11;
-        printf("Ho estratto il %d-esimo numero %d\n", i, num);
-        fatt = fattoriale(num);
+        
+            num = rand()%11;
+            printf("Ho estratto il %d-esimo numero %d\n", i, num);
+            fatt = fattoriale(num);
 
         sem_post(prin);
     }
@@ -51,7 +54,9 @@ void *print(void *data)
     for(int i = 0; i<N; i++)
     {
         sem_wait(prin);
-        printf("Il fattoriale di %d è %d\n", num, fatt);
+        
+            printf("Il fattoriale di %d è %d\n", num, fatt);
+        
         sem_post(writ);
     }
 }

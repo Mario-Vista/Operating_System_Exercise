@@ -1,11 +1,15 @@
 /*Esercitazione 1
 
-Facendo uso della libreria Pthread, realizzare un programma in cui un thread scrittore, dato un intero N 
-da riga di comando (dove10<N<=15), scrive in un file nella prima posizione, uno alla volta edogni ½ secondo,
-a sequenza di Fibonacci di ordine N, alternandosi conun thread lettore che legge, uno alla volta dalla prima
-posizione del file, i numeri scritti dal thread scrittore. Un terzo thread attende lalettura dell’ N-esimo 
-intero, quindi stampa a video il messaggio “Operazioni concluse, arrivederci dal thread: tid”, attende 5 secondi
-e termina.
+Facendo uso della libreria Pthread, realizzare un programma in cui 
+- un thread scrittore, dato un intero N da riga di comando (dove10<N<=15), scrive in un file nella prima posizione,
+	uno alla volta ed ogni ½ secondo, la sequenza di Fibonacci di ordine N, 
+
+alternandosi con 
+
+- un thread lettore che legge, uno alla volta dalla prima posizione del file, i numeri scritti dal thread scrittore. 
+
+- Un terzo thread attende la lettura dell’ N-esimo intero, quindi stampa a video il messaggio “Operazioni concluse, 
+	arrivederci dal thread: tid”, attende 5 secondi e termina.
 
 */
 
@@ -25,7 +29,7 @@ int fd;
 void *writ(void *data)
 {
 	ThreadParams *params = (ThreadParams *) data;
-	int a =0;
+	int a = 0;
 	int b = 1;
 	int fib;
 
@@ -37,7 +41,7 @@ void *writ(void *data)
 		b = fib;
 
 		fseek(params->file, 0, SEEK_SET);
-		fprintf(params->file, "%s\n", fib);
+		fprintf(params->file, "%d\n", fib);
 		
 		sem_post(leggi);
 	}
@@ -48,7 +52,7 @@ void *red(void *)
 	int i;
 	int buff;
 	while(1){
-		sem_wait(sem2);
+		sem_wait(leggi);
 		lseek(fd,0,SEEK_SET);
 		read(fd,&buff,sizeof(int));
 		printf("Ho letto: %d\n",buff);

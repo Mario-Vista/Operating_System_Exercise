@@ -18,13 +18,13 @@ int m,n;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 
-//dim mxn
+//dimensione della matrice A mxn
 int **matrixA;
 
-//dim nxm
+//dimensione della matrice B nxm
 int **matrixB;
 
-//dim mxm
+//dimensione della matrice C mxm
 int **matrixC;
 
 //variabile per controllare se è terminato il calcolo

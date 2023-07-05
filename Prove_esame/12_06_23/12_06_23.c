@@ -33,7 +33,7 @@ int count = 0;
 
 //intestazione di function
 void allocation();
-void print_matrix(int **matrix, int row, int 	 ols);
+void print_matrix(int **matrix, int row, int cols);
 
 
 //calcolo prodotto matrice per vettore

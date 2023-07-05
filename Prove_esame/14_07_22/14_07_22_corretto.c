@@ -97,8 +97,8 @@ void print_matrix()
 			printf("%d	", matrixTwo[i][j]);
 		}
 		printf("\n");
-	}
-}
+	
+}}	
 
 //alloco la struttura e inizializzo i suoi campi
 void init_struct()

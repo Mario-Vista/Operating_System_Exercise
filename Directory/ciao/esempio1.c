@@ -3,11 +3,16 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+/**
+ * ESEMPIO: Stampa informazioni sui file
+*/
 
 int main(int argc, char const *argv[])
 {
-	//dichiaro una variabile di tipo struct stat
+	//dichiaro una variabile di tipo struct stat per memorizzare le impostazioni sul file
 	struct stat buf;
+
+	//puntatore a stringa
 	char *ptr;
 
 	for(int i = 0; i < argc; i++)

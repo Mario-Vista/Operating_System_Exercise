@@ -110,7 +110,8 @@ void *consume(void *arg)
 		if(pointer->buff[i%NBUFF] != i)
 		{
 			printf("buff[%d] = %d\n", i, pointer->buff[i % NBUFF]);
-		}
+		}else 
+            printf( "\nConsumo -> [ %d ]: %d", i % NBUFF, pointer->buff[ i % NBUFF ] );
 		sem_post(pointer->mutex);
 		sem_post(pointer->nempty);
 	}

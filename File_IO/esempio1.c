@@ -9,7 +9,7 @@ char buf2[] = "ABCDEFGHIJ";
 
 int main( void ) {
     
-    //creo un file descryptor
+    //creo un file descriptor
     int fd;
     if ( ( fd = creat( "file.hole", FILE_MODE ) ) < 0 ) 
         printf("creat error");
